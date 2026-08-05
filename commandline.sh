@@ -7,7 +7,7 @@ conda activate visit-a-job
 # download all the genomes you want to compare
 datasets download genome accession ${GENOME_GENBANK_NUMBER} --include genome
 
-# calculate synteny (similarities) between a list of reference genomes with an allowed divergence of 5% ()
+# calculate synteny (similarities) between a list of reference genomes with an allowed divergence of 5%
 ntSynt --fastas_list References.list -d 5
 
 # write path of all .fai files in the directory to an fais.txt file to be used in ntsynt_viz
