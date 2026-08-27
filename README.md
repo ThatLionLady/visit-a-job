@@ -272,7 +272,7 @@ GCF_046562875.1_mPanOnc1_haplotype_2_genomic.fna  0.00849950 0.00838426 0.009086
 ### Make Your Tree
 
 ```sh
-fastme -i helper_scripts/mash_fastme.phy -o mash_tree.nwk
+fastme -i mash_fastme.phy -o mash_tree.nwk
 ```
 
 ### Relabel Tree
@@ -280,7 +280,7 @@ fastme -i helper_scripts/mash_fastme.phy -o mash_tree.nwk
 The labels right now are crazy long. But do not fret! This is fixable with a quick script using our [NameConversion.tsv](#step-4-whats-in-a-name) file we already created:
 
 ```sh
-cp mash_tree.nwk tree.nwk && while read FULL SHORT; do sed -i "s/${FULL:0:10}/${SHORT}/g" mash_tree.nwk; done < NameConversion.tsv
+cp mash_tree.nwk tree.nwk && while read FULL SHORT; do sed -i "s/${FULL:0:10}/${SHORT}/g" tree.nwk; done < NameConversion.tsv
 ```
 
 This script takes our NameConversion.tsv and uses `sed` to relabel each branch of the tree by finding the truncated name (the first 10 characters of the genome file name, i.e. column 1, `FULL:0:10`) and replacing it with our "desired" name (i.e. column 2, `SHORT`).
