@@ -50,7 +50,7 @@ Learn about genomics projects using big data and do some bioinformagic of your o
 - [ncbi_datasets](https://anaconda.org/channels/conda-forge/packages/ncbi-datasets-cli/overview)
 - [ntSynt](https://github.com/BirolLab/ntSynt)
 - [ntSynt-viz](https://github.com/BirolLab/ntSynt-viz)
-- [Mash](https://mash.readthedocs.io/en/latest/)
+- [Mash](https://anaconda.org/channels/bioconda/packages/mash/overview)
 - [FastMe](https://www.atgc-montpellier.fr/tool/fastme-2-0/)
 
 ```sh
