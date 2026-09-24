@@ -51,7 +51,7 @@ Learn about genomics projects using big data and do some bioinformagic of your o
 - [ntSynt](https://github.com/BirolLab/ntSynt)
 - [ntSynt-viz](https://github.com/BirolLab/ntSynt-viz)
 - [Mash](https://anaconda.org/channels/bioconda/packages/mash/overview)
-- [FastMe](https://www.atgc-montpellier.fr/tool/fastme-2-0/)
+- [FastMe](https://anaconda.org/channels/bioconda/packages/fastme/overview)
 
 ```sh
 conda env create -f bioinformagic.yml
