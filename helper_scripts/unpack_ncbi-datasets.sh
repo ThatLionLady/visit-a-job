@@ -19,7 +19,7 @@ find "$TMPDIR/ncbi_dataset/data" -type f \( \
     -name "*.fna" -o \
     -name "*.fa" -o \
     -name "*.fasta" \
-\) -exec mv {} . \;
+\) -exec touch {} \; -exec mv {} . \;
 
 # Clean up
 rm -rf "$TMPDIR"
