@@ -1,5 +1,6 @@
 - [Visit a Job](#visit-a-job)
   - [Conservation Genetics](#conservation-genetics)
+  - [PLEASE BE ADVICED!](#please-be-adviced)
   - [Set Up Your System](#set-up-your-system)
     - [**Following the steps below, you will do some comparative genomics of your favorite animal and a few of it's close relatives.**](#following-the-steps-below-you-will-do-some-comparative-genomics-of-your-favorite-animal-and-a-few-of-its-close-relatives)
 - [Activity 1 - Find Genomes](#activity-1---find-genomes)
@@ -32,6 +33,7 @@
 - [Activity 3 - Synteny](#activity-3---synteny)
   - [What is Synteny? With Cookies!](#what-is-synteny-with-cookies)
   - [Step 1: Compute synteny blocks](#step-1-compute-synteny-blocks)
+    - [**IF IT CRASHES**](#if-it-crashes)
   - [Step 2: Genomes Indexes](#step-2-genomes-indexes)
   - [Step 3: Visualize Synteny](#step-3-visualize-synteny)
     - [Make It Pretty!](#make-it-pretty)
@@ -42,6 +44,14 @@
 ## Conservation Genetics
 
 Learn about genomics projects using big data and do some bioinformagic of your own with an activity from the command line. No prior experience in genomics, coding, or bioinformatics is required.
+
+## PLEASE BE ADVICED!
+
+[Activity 3, Step 1](#step-1-compute-synteny-blocks) requires a computer with at least 32G RAM.
+
+After doing multiple test runs of combos of species with varying numbers of genomes with different levels of divergence, whether it's 2 or 20 species with 1% to 20% divergence, peak memory use is ~30 GB during the run. I have provided troubleshooting suggestions throughout.
+
+But don't fret! You can still proceed even if your computer doesn't quite have the power. [Activity 1](#activity-1---find-genomes) and [Activity 2](#activity-2---how-similar-is-their-dna) don't take much. And the results from those can be just as interesting, just not as colorful as those of Activity 3. 
 
 ## Set Up Your System
 
@@ -340,7 +350,7 @@ We are going to use the genmes from [Activity 1](#activity-1---find-genomes) and
 
 ## Step 1: Compute synteny blocks
 
-**This step takes the longest.**
+**This step takes the longest. And takes the most memory (RAM)!**
 
 Now we are starting the heavy lifting. The program `ntSync` finds the similarities between a list of reference genomes then generates beautiful plots to visualize synteny.
 
@@ -351,6 +361,20 @@ ntSynt --fastas_list References.list -d 1
 This is where you can use what you learned in [Activity 2](#step-2-compare-genomes). The -d parameter is the expected divergence used to tune the algorithm and helps ntSynt distinguish true matches from random matches. I recommend setting this to somewhere close to the highest number from your [mash triangle](#step-2-compare-genomes). 
 
 *But don't worry if you're not sure what to put for -d. Underestimating you might lose some sensitivity and overestimating might lose specificity, but for this activity, it'll be fine.*
+
+### **IF IT CRASHES**
+
+> It might be trying to use more RAM than you have available. Knock it down by using:
+
+```
+ntSynt --fastas_list References.list -d 1 -t 2
+```
+
+> You can also inspect the log file if you want to delve in a bit deeper.
+
+```
+cat .snakemake/log/*.snakemake.log
+```
 
 ## Step 2: Genomes Indexes
 
@@ -385,8 +409,18 @@ First thing's first, double check you have all the things!
 
 ### Make It Pretty!
 
+Replace `$FAVORITE_SPECIES` below with the name you assigned to the species you want at the top of the plot.
+
+> **WITH A TREE** (i.e. 4 or more species in your References.list)
+
 ```bash
 ntsynt_viz.py --blocks ntSynt.k24.w1000.synteny_blocks.tsv --fais fais.txt --format pdf --name_conversion NameConversion.tsv --normalize --tree tree.nwk --target-genome $FAVORITE_SPECIES
+```
+
+> **WITHOUT THE TREE** (if you skipped [Activity 2, Step 3](#step-3-draw-a-tree), i.e. only 2 or 3 species in your References.list)
+
+```bash
+ntsynt_viz.py --blocks ntSynt.k24.w1000.synteny_blocks.tsv --fais fais.txt --format pdf --name_conversion NameConversion.tsv --normalize --target-genome $FAVORITE_SPECIES
 ```
 
 At the end of it all, this is what you get!
